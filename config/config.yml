@@ -1,0 +1,31 @@
+app:
+  name: "go-clean-template"
+  version: "1.0.0"
+
+server:
+  port: "8080"
+
+logger:
+  log_level: "debug"
+  rollbar_env: "go-clean-template"
+
+mysql:
+  host: "localhost"
+  port: "3306"
+  username: "admin"
+  password: "admin"
+  dbname: "verint_compression"
+
+rabbitmq:
+  host: "localhost"
+  port: "5672"
+  username: "guest"
+  password: "guest"
+
+  url: "amqp://guest:guest@localhost:5672"
+  rpc_server_exchange: "rpc_server"
+  rpc_client_exchange: "rpc_client"
+
+otel:
+  jaeger_endpoint: "http://localhost:14268/api/traces"
+  prometheus_port: "4317"

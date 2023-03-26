@@ -1,0 +1,9 @@
+Buat sebuah aplikasi menggunakan bahasa pemrograman apa saja dengan kebutuhan pengguna sebagai berikut:
+Buat sebuah objek dengan nama “Kendaraan” yang memiliki property suara dan memiliki fitur akselerasi, dimana saat fitur akselerasi dijalankan, objek akan mencetak property suara pada layar.
+Buat sebuah objek dengan nama “Sepeda” yang merupakan turunan dari objek “Kendaraan” yang memiliki property suara “Swoosh” dan memilik property rantai dengan nilai awal “Normal”. Saat fitur akselerasi dijalankan, fitur tersebut akan mengganti nilai property rantai dengan “Perlu perbaikan”.
+Buat sebuah objek dengan nama “Mobil” yang merupakan turunan dari objek “Kendaraan” yang memiliki property suara “Vroom” dan memiliki property bensin dengan nilai awal “Penuh”. Saat fitur akselerasi dijalankan, fitur tersebut akan mengganti nilai property bensin dengan “Kosong”. 
+Contoh penggunaan:
+Sepeda.Akselerasi()
+akan memprint “Swoosh” pada layar.
+System.out.println(Sepeda.rantai())
+akan memprint “Perlu perbaikan” pada layar.

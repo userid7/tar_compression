@@ -1,0 +1,71 @@
+version: "3.9"
+services:
+  # Database
+  db:
+    platform: linux/x86_64
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      MYSQL_HOST: localhost
+      MYSQL_DATABASE: verint_compression
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 55
+    networks:
+      - mysql-phpmyadmin
+
+  # phpmyadmin
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8090:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: admin
+    networks:
+      - mysql-phpmyadmin
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: "rabbitmq-local"
+    ports:
+      - 5672:5672
+      - 15672:15672
+    # volumes:
+    #   - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+    #   - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - rabbitmq_net
+    restart: always
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - "16686:16686"
+      - "14268:14268"
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+      - LOG_LEVEL=debug
+    networks:
+      - rabbitmq_net
+    restart: always
+
+networks:
+  rabbitmq_net:
+
+volumes:
+  rabbitmq_vol:
